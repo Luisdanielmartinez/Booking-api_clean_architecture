@@ -26,7 +26,7 @@ namespace Tarker.Booking.Api.Controllers
                 ResponseApiService.Response(StatusCodes.Status201Created, data));
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateUserModel model, [FromServices] IUpdateUserCommand updateUserCommand)
         {
             var data = await updateUserCommand.Execute(model);

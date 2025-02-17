@@ -38,11 +38,11 @@ namespace Tarker.Booking.Api.Controllers
         }
 
         [HttpGet("get-by-documentNumber/{documentNumber}")]
-        public async Task<IActionResult> GetById(string documentNumber, [FromServices]  IGetBookingsByDocumentNumberQuery getBookingsByDocumentNumberQuery)
+        public async Task<IActionResult> GetById(string documentNumber, [FromServices] IGetBookingsByDocumentNumberQuery getBookingsByDocumentNumberQuery)
         {
             var data = await getBookingsByDocumentNumberQuery.Execute(documentNumber);
 
-            if (data == null)
+            if (data.Count == 0)
                 return StatusCode(StatusCodes.Status404NotFound, ResponseApiService.Response(StatusCodes.Status404NotFound));
 
             return StatusCode(StatusCodes.Status200OK, ResponseApiService.Response(StatusCodes.Status200OK, data));
@@ -53,10 +53,11 @@ namespace Tarker.Booking.Api.Controllers
         {
             var data = await getBookingByTypeQuery.Execute(type);
 
-            if (data == null)
+            if (data.Count == 0)
                 return StatusCode(StatusCodes.Status404NotFound, ResponseApiService.Response(StatusCodes.Status404NotFound));
 
             return StatusCode(StatusCodes.Status200OK, ResponseApiService.Response(StatusCodes.Status200OK, data));
         }
     }
+
 }
